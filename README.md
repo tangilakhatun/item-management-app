@@ -5,7 +5,7 @@ It showcases makeup and skincare products with a professional design, dynamic pr
 
 ## 🌐 Live Demo
 
-> [Deployed on Vercel]()
+> [Deployed on Vercel](https://item-management-app-beta.vercel.app/)
 
 
 ## 🚀 Features
