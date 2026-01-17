@@ -27,6 +27,8 @@ export default function Navbar() {
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Items", href: "/items" },
+    { name: "Add Item", href: "/add-items" },
+
   ];
 
   return (
@@ -35,7 +37,7 @@ export default function Navbar() {
 
   
         <Link href="/" className="text-2xl font-bold text-blue-600">
-          MyShop
+          BeautyStore
         </Link>
 
         
@@ -47,7 +49,7 @@ export default function Navbar() {
               className={`px-2 py-1 transition ${
                 pathname === link.href
                   ? "text-blue-600 font-semibold border-b-2 border-blue-600"
-                  : "text-gray-700 hover:text-blue-600"
+                  : "text-gray-700 font-semibold hover:text-blue-600"
               }`}
             >
               {link.name}

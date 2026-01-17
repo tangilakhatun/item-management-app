@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 async function getItem(id) {
-  const res = await fetch(`http://localhost:5000/items/${id}`, { cache: "no-store" });
+  const res = await fetch(`https://nextjs-first-server-wheat.vercel.app/items/${id}`, { cache: "no-store" });
   if (!res.ok) return null;
   return res.json();
 }

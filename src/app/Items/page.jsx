@@ -4,18 +4,24 @@
 import { useEffect, useState } from "react";
 import ItemCard from "@/components/itemCard";
 import { Search } from "lucide-react";
+import Loader from "@/components/loader";
 
 export default function ItemsPage() {
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true); // ✅ add loading state
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
   const [category, setCategory] = useState("all");
 
   useEffect(() => {
-    fetch("http://localhost:5000/items")
+    setLoading(true); // start loading
+    fetch("https://nextjs-first-server-wheat.vercel.app/items")
       .then(res => res.json())
-      .then(data => setItems(data));
+      .then(data => setItems(data))
+      .finally(() => setLoading(false)); // stop loading
   }, []);
+
+  if (loading) return <Loader />; // show loader while fetching
 
   const filteredItems = items
     .filter(item =>
@@ -40,10 +46,9 @@ export default function ItemsPage() {
         </p>
       </div>
 
-   
+      {/* Search, Category, Sort */}
       <div className="bg-white rounded-2xl shadow-md p-4 flex flex-col md:flex-row gap-4 items-center">
         
-        {/* Search */}
         <div className="relative flex-1">
           <Search
             size={18}
@@ -58,7 +63,6 @@ export default function ItemsPage() {
           />
         </div>
 
-        {/* Category */}
         <select
           value={category}
           onChange={e => setCategory(e.target.value)}
@@ -70,7 +74,6 @@ export default function ItemsPage() {
           <option value="accessories">Accessories</option>
         </select>
 
-        {/* Sort */}
         <select
           value={sort}
           onChange={e => setSort(e.target.value)}
@@ -82,7 +85,7 @@ export default function ItemsPage() {
         </select>
       </div>
 
-     
+      {/* Items Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredItems.map(item => (
           <ItemCard key={item.id} item={item} />

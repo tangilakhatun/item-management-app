@@ -2,7 +2,7 @@ import ItemCard from "./itemCard";
 
 
 async function getItems() {
-  const res = await fetch("http://localhost:5000/items", {
+  const res = await fetch("https://nextjs-first-server-wheat.vercel.app/items", {
     cache: "no-store",
   });
   return res.json();

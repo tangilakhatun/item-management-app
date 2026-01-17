@@ -3,38 +3,55 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Mail, Lock, Eye, EyeOff, LogIn } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 export default function Login() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function handleLogin(e) {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    const res = await fetch("/api/auth", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
+    if (!email || !password) {
+      toast.error("Please fill all fields!");
+      return;
+    }
 
-    if (res.ok) router.push("/items");
-    else alert("Invalid credentials");
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (res.ok) {
+        toast.success("Login successful!");
+        router.push("/items");
+      } else {
+        toast.error("Invalid credentials");
+      }
+    } catch (err) {
+      toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center  px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
-        
-        
+    <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 space-y-6">
+       
         <div className="text-center space-y-1">
           <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
           <p className="text-gray-500 text-sm">Login to continue</p>
         </div>
 
-     
+       
         <form onSubmit={handleLogin} className="space-y-5">
-          
           
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
@@ -47,7 +64,7 @@ export default function Login() {
             />
           </div>
 
-          
+        
           <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
             <input
@@ -66,22 +83,21 @@ export default function Login() {
             </button>
           </div>
 
-          
+       
           <button
             type="submit"
-            className="w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3
+            disabled={loading}
+            className={`w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3
               bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold
-              hover:from-indigo-600 hover:to-blue-500 transition-all duration-300 shadow-lg"
+              hover:from-indigo-600 hover:to-blue-500 transition-all duration-300 shadow-lg
+              ${loading ? "opacity-60 cursor-not-allowed" : ""}`}
           >
             <LogIn size={18} />
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
         
-        <p className="text-center text-xs text-gray-500">
-          Secure login • Your data is protected
-        </p>
       </div>
     </div>
   );
