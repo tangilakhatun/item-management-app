@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# BeautyStore - Makeup & Skincare E-Commerce
 
-## Getting Started
+**BeautyStore** is a modern, responsive e-commerce web application built with **Next.js 16 (App Router)** and **Express.js API**.  
+It showcases makeup and skincare products with a professional design, dynamic product listing, product details, and optional protected pages for adding items.
 
-First, run the development server:
+## 🌐 Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+> [Deployed on Vercel]()
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🚀 Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Landing Page
+- Hero slider with promotional banners for products.
+- Features section highlighting key services.
+- Top products & categories showcase.
+- Testimonials / reviews section.
+- Newsletter signup section.
+- Brands / partner logos section.
+- Footer with social links, quick links, and newsletter.
 
-## Learn More
+### Authentication
+- Mock login with hardcoded credentials.
+- Protected routes for authenticated users (Add Item page).
+- Credentials stored in cookies.
+- Optional: NextAuth.js integration for social login.
 
-To learn more about Next.js, take a look at the following resources:
+### Items Pages
+- **Item List Page**: Shows all products with name, image, price, rating, and description.
+- **Item Details Page**: Full product details, delivery info, tags, and professional layout.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Protected Page
+- **Add Item Page**: Only accessible when logged in.
+- Form to add a new product via Express.js API.
+- Toast notification on successful product creation.
+- Redirects unauthenticated users to login.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠 Technologies Used
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js 16 (App Router)** – Frontend  
+- **Express.js** – Backend API / JSON server  
+- **Tailwind CSS** – Styling  
+- **Lucide React** – Icons  
+- **Vercel** – Deployment (frontend)  
+- **Node.js** – Server runtime  
