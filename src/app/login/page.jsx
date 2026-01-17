@@ -1,11 +1,88 @@
-import React from 'react';
+"use client";
 
-const Login = () => {
-    return (
-        <div>
-            
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Mail, Lock, Eye, EyeOff, LogIn } from "lucide-react";
+
+export default function Login() {
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    const res = await fetch("/api/auth", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (res.ok) router.push("/items");
+    else alert("Invalid credentials");
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center  px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 space-y-6">
+        
+        
+        <div className="text-center space-y-1">
+          <h1 className="text-3xl font-bold text-gray-900">Welcome Back</h1>
+          <p className="text-gray-500 text-sm">Login to continue</p>
         </div>
-    );
-};
 
-export default Login;
+     
+        <form onSubmit={handleLogin} className="space-y-5">
+          
+          
+          <div className="relative">
+            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+            <input
+              name="email"
+              type="email"
+              placeholder="Email address"
+              required
+              className="w-full pl-10 pr-4 py-2.5 rounded-full border focus:ring-2 focus:ring-indigo-500 outline-none"
+            />
+          </div>
+
+          
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+            <input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              required
+              className="w-full pl-10 pr-10 py-2.5 rounded-full border focus:ring-2 focus:ring-indigo-500 outline-none"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            >
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
+          </div>
+
+          
+          <button
+            type="submit"
+            className="w-full inline-flex items-center justify-center gap-2 rounded-full px-6 py-3
+              bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-semibold
+              hover:from-indigo-600 hover:to-blue-500 transition-all duration-300 shadow-lg"
+          >
+            <LogIn size={18} />
+            Login
+          </button>
+        </form>
+
+        
+        <p className="text-center text-xs text-gray-500">
+          Secure login • Your data is protected
+        </p>
+      </div>
+    </div>
+  );
+}
